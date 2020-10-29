@@ -26,7 +26,7 @@ class Welcome {
 
 class Tag {
   Tag({
-    this.spaceList,
+    // this.spaceList,
     this.id,
     this.title,
     this.displayName,
@@ -35,16 +35,16 @@ class Tag {
     //this.v,
   });
 
-  List<dynamic> spaceList;
-  String id;
-  String title;
-  String displayName;
-  String meta;
-  String description;
+  // List<dynamic> spaceList;
+  String id = "";
+  String title = "";
+  String displayName = "";
+  String meta = "";
+  String description = "";
   // int v;
 
   factory Tag.fromJson(Map<String, dynamic> json) => Tag(
-        spaceList: List<dynamic>.from(json["spaceList"].map((x) => x)),
+        //spaceList: List<dynamic>.from(json["spaceList"].map((x) => x)),
         id: json["_id"],
         title: json["title"],
         displayName: json["displayName"],
@@ -54,7 +54,7 @@ class Tag {
       );
 
   Map<String, dynamic> toJson() => {
-        "spaceList": List<dynamic>.from(spaceList.map((x) => x)),
+        // "spaceList": List<dynamic>.from(spaceList.map((x) => x)),
         "_id": id,
         "title": title,
         "displayName": displayName,

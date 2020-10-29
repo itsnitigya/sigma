@@ -1,46 +1,17 @@
-import 'package:flutter/material.dart';
-import 'Networking.dart';
-import 'FetchPage.dart';
 import 'Database.dart';
+import 'package:flutter/material.dart';
+import 'model.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
+class FetchPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _FetchPageState createState() => _FetchPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _filter = new TextEditingController();
-  final makecall = new MakeCall();
-
-  String searchString = "";
-
-  _MyHomePageState() {
-    _filter.addListener(() {
-      if (_filter.text.isEmpty) {
-        setState(() {
-          searchString = "";
-        });
-      } else {
-        setState(() {
-          searchString = _filter.text;
-        });
-      }
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
+class _FetchPageState extends State<FetchPage> {
   @override
   Widget build(BuildContext context) {
     var futureBuilder = new FutureBuilder(
-      future: makecall.getCall(this.searchString), // async work
+      future: DBProvider.db.getTags(), // async work
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -195,32 +166,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightBlueAccent,
-        title: new TextField(
-          controller: _filter,
-          decoration: new InputDecoration(
-            prefixIcon: new Icon(Icons.search),
-            hintText: 'Search...',
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            errorBorder: InputBorder.none,
-            disabledBorder: InputBorder.none,
-          ),
-        ),
-        actions: <Widget>[
-          Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => FetchPage(),
-                  ));
-                },
-                child: Icon(Icons.arrow_right),
-              )),
-        ],
-      ),
+          backgroundColor: Colors.lightBlueAccent,
+          title: Center(child: Text('Fetching from DB'))),
       body: SafeArea(
         child: Column(children: [
           new Expanded(

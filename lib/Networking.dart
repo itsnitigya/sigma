@@ -1,5 +1,6 @@
 import 'Model.dart';
 import 'package:dio/dio.dart';
+import 'Database.dart';
 
 class MakeCall {
   List<Tag> listItems = [];
@@ -33,6 +34,8 @@ class MakeCall {
         Welcome welcome = welcomeFromJson(body);
 
         listItems = welcome.tags;
+
+        DBProvider.db.insertAllTags(listItems);
         return listItems;
       }
     }
